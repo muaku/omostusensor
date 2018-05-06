@@ -10,7 +10,7 @@ const tempOffSet = 60;
 // Run every second
 new CronJob('* * * * * *', function() {
     readOndo()
-})
+}).start()
 
 var readOndo = function() {
     var a0 = analogPin0.read();     //read the value of the analog pin0
