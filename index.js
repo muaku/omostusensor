@@ -1,9 +1,9 @@
 const mraa = require('mraa')
+var mqtt = require('mqtt')
+var client  = mqtt.connect('mqtt://192.168.0.24')
 var CronJob = require('cron').CronJob;
 var analogPin0 = new mraa.Aio(0);   //setup access analog input Analog pin #0 (A0)
 // var analogPin1 = new mraa.Aio(1);
-require("./db/mongoose")
-const ondoSensor = require("./db/models").ondoSensor
 
 const vcc = 4.5;    // input volt
 const r1 = 10.0;    // [Kohm]
@@ -23,9 +23,8 @@ var readOndo = function() {
         created_at: Date.now()
     }
     console.log("温度: ", ondo)
-    ondoSensor.save(data, (err) => {
-        console.log(err)
-    })
+    // TODO: send data to raspi (store data in raspi)
+    client.publish('ondo', ondo)
 }
 
 
